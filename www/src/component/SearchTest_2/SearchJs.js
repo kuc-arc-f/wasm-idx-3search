@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import Dexie from 'dexie';
 import LibTask from '../../libs/LibTask';
 import LibDexie from '../../libs/LibDexie';
+import LibSearch from '../../libs/LibSearch';
 
 //
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {data: ''}
+        this.handleClick = this.handleClick.bind(this);
         this.db = null
     }
     componentDidMount(){
@@ -23,9 +25,8 @@ class Index extends Component {
         await this.db.tasks.toArray().then(function (items ) {
             var tasks = LibDexie.get_reverse_items(items)
             self.setState({ data: tasks })
-//console.log( tasks )
+// console.log( tasks )
         });
-        this.dispDom()
     }
     getPostRow(item){
         var ret = "<div class='div_post_row_wrap'>";
@@ -38,37 +39,43 @@ class Index extends Component {
         ret += "</div>";
         return ret;
     }    
-    dispDom(){
+    execSearch( key ){
+        $("#div_post_wrap").empty();
         if(this.state.data instanceof Array){
             var t0 = performance.now();
+            var values= LibSearch.get_search_items(this.state.data, key);
+            var t1 = performance.now();
+            //dom
             var s_elm = "";     
             var self = this
-            this.state.data.map(function(object, i){
+            values.map(function(object, i){
                 var s = self.getPostRow( object );
                 s_elm += s;
-            })            
-// console.log( s_elm )
-//            var t1 = performance.now();
+            })
             var parent = window.document.getElementById('div_post_wrap');
             var div = document.createElement('div');
             div.innerHTML = s_elm;
-            parent.appendChild(div);
-            var t1 = performance.now();
-            console.log("Call to function took= " + (t1 - t0) + " milliseconds.");
+            parent.appendChild(div);            
+console.log("Call to function took= " + (t1 - t0) + " milliseconds.");
+//console.log( values )
         }
+    }        
+    handleClick(){
+        console.log("#-handleClick")
+        var s = $("#input_key").val();
+//        console.log( s )
+        this.execSearch(s)
     }    
     render(){
         return (
         <div className="container">
-            <h3>SpeedTest-javascript - index</h3>
-            <div className="row">
-                <div className="col-md-6">
-                    <a id="download" href="" download="tasks.json" onClick={this.handleClickExport}
-                     className="btn btn-outline-primary btn-sm">Export
-                    </a> 
-                </div>
-            </div><br />
-            <hr />
+            <h3>SeachTest-javascript-  2</h3>
+            <hr className="mt-2 mb-2" />
+            Serach - Key:
+            <input type="text" className="form-control mb-2" id="input_key" />
+            <button className="btn btn-primary" onClick={this.handleClick}>Test
+            </button>
+            <hr />            
             <div id="div_post_wrap">
             </div>
         </div>

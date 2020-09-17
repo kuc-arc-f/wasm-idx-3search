@@ -195,3 +195,43 @@ pub fn wasm_test_array(id_name: &str, val: &JsValue, key_val: &str) -> JsValue {
 //    JsValue::from_str( &s_elm )
     JsValue::from_serde(&vect ).unwrap()
 }
+//
+fn convert_html(title: &str ,id_num: i32, created_at: &str) -> String{
+    let mut ret : String = String::from("");
+    ret.push_str("<div class='div_post_row_wrap'>");
+    ret.push_str("<p class='p_title mb-0'>");
+    ret.push_str( &title);
+    ret.push_str(" , ");
+    ret.push_str( &created_at );
+    ret.push_str("  <span>ID :");
+    ret.push_str( &id_num.to_string() );
+    ret.push_str("  </span>");
+    ret.push_str("</p>");
+    ret.push_str("<hr class='hr_ex1 mt-1 mb-1'>");
+    ret.push_str("</div>");
+    return ret;
+}
+
+#[wasm_bindgen]
+pub fn wasm_search_row(
+    key_val: &str, title: &str ,id_num: i32, created_at: &str) -> JsValue {
+//console::log_1(&JsValue::from_str( &row.title ));
+    let mut s_elem : String = String::from("");
+    let mut ret : i32 = 0;
+    let r = title.find(&key_val);
+    if(r != None){
+        ret = 1;
+        let s = convert_html(title, id_num, created_at);
+        s_elem.push_str( &s );
+    }
+    JsValue::from_str( &s_elem )
+}
+
+#[wasm_bindgen]
+pub fn wasm_disp_row(title: &str ,id_num: i32, created_at: &str) -> JsValue {
+//console::log_1(&JsValue::from_str( &row.title ));
+    let mut s_elem : String = String::from("");
+    let s = convert_html(title, id_num, created_at);
+    s_elem.push_str( &s );
+    JsValue::from_str( &s_elem )
+}

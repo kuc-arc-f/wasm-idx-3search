@@ -22,6 +22,11 @@ import SpeedTestTest from './component/SpeedTest/Test';
 /* speed_serach */
 import SearchTestSearch from './component/SearchTest/Search';
 import SearchTestSearchJs from './component/SearchTest/SearchJs';
+/* SearchTest_2 */
+import SearchTest_2_Search from './component/SearchTest_2/Search';
+/* SpeedTest_2 */
+import SpeedTest_2 from './component/SpeedTest_2/Index';
+
 //
 class App extends Component {
   render() {
@@ -45,6 +50,8 @@ class App extends Component {
             <Route path='/speed_test_test' component={SpeedTestTest}/>
             <Route path='/speed_test_search' component={SearchTestSearch}/>
             <Route path='/speed_test_search_js' component={SearchTestSearchJs}/>
+            <Route path='/speed_test2_search' component={SearchTest_2_Search}/>
+            <Route path='/speed_test2' component={SpeedTest_2}/>
             
           </div>
         </Router>

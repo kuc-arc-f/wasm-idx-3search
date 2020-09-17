@@ -23,8 +23,13 @@ class Navbar extends React.Component {
                         <Link to="/speed_test_js" className="nav-link">SpeedTest-JS</Link>
                         <Link to="/speed_test_test" className="nav-link">SpeedTest - Test</Link>
                         <div className="dropdown-divider"></div>
+                        <Link to="/speed_test2" className="nav-link">SpeedTest-2</Link>
+                        <div className="dropdown-divider"></div>
                         <Link to="/speed_test_search" className="nav-link">SpeedTest - SearchWasm</Link>
                         <Link to="/speed_test_search_js" className="nav-link">SpeedTest - SearchJS</Link>
+                        <div className="dropdown-divider"></div>
+                        <Link to="/speed_test2_search" className="nav-link">SpeedTest - SearchWasm_2</Link>
+
                     </div>
                 </li>
                 <li className="nav-item active">
